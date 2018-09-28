@@ -1,0 +1,108 @@
+.gamearea {
+  max-width: 300px;
+  width: 100%;
+  margin: 50px auto;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  background: #fff;
+  padding: 40px;
+}
+.row {
+  display: flex;
+  border: 0;
+  margin-bottom: 20px;
+}
+.row:last-child {
+  margin-bottom: 0;
+}
+.toggle-button {
+  align-items: center;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302),
+    0 1px 3px 1px rgba(60, 64, 67, 0.149);
+  cursor: pointer;
+  display: flex;
+  height: 47px;
+  -ms-flex-pack: center;
+  justify-content: center;
+  transition: box-shadow 365ms cubic-bezier(0.4, 0, 0.2, 1);
+  width: 47px;
+  margin-right: 10px;
+  border: 3px solid white;
+}
+
+.toggle-button:hover {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
+}
+.red {
+  background: red;
+}
+
+.blue {
+  background: blue;
+  border: 3px solid white;
+}
+.blue:hover {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
+}
+.green {
+  background: green;
+}
+.yellow {
+  background: yellow;
+}
+
+.game-select .row {
+  margin-top: 20px;
+  border-top: 1px solid #000;
+  padding-top: 20px;
+}
+
+.answers {
+  width: 50px;
+  margin-left: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding-top: 5px;
+}
+.answerPin {
+  display: block;
+  height: 15px;
+  width: 15px;
+  margin-right: 5px;
+  border-radius: 50%;
+  border: 1px solid black;
+  margin-bottom: 10px;
+}
+
+.answerPin.correct {
+  background: black;
+}
+.answerPin.incorrect {
+  background: white;
+}
+
+.toggle-button {
+  position: relative;
+}
+.codeOptions {
+  z-index: 2;
+  visibility: hidden;
+  position: absolute;
+  left: -10%;
+  top: 100px;
+  width: 260px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  transition: all 0.5s ease-in-out;
+
+  padding: 20px;
+  background: #f6f6f6;
+}
+
+.toggle-button:hover .codeOptions {
+  visibility: visible;
+  top: -50px;
+}
