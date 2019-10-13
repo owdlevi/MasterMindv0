@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import GameRow from "./components/gameRow";
 import GameRowSelect from "./components/gameRowSelect";
 import { gameSettings } from "./gameConfig";
