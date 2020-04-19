@@ -1,29 +1,35 @@
 export const gameSettings = {
-  codeOption: [
+  gameColors: [
     {
-      value: 0,
-      color: "red"
+      id: 1,
+      colorName: 'Red',
+      colorCode: 'red'
     },
     {
-      value: 1,
-      color: "blue"
+      id: 2,
+      colorName: 'Blue',
+      colorCode: 'blue'
     },
     {
-      value: 2,
-      color: "green"
+      id: 3,
+      colorName: 'Green',
+      colorCode: 'green'
     },
     {
-      value: 3,
-      color: "yellow"
+      id: 4,
+      colorName: 'Yellow',
+      colorCode: 'yellow'
     },
     {
-      value: 4,
-      color: "black"
+      id: 5,
+      colorName: 'Brown',
+      colorCode: 'brown'
     },
     {
-      value: 5,
-      color: "orange"
+      id: 6,
+      colorName: 'Indigo',
+      colorCode: 'indigo'
     }
   ],
   maxOption: 4
-};
+}
