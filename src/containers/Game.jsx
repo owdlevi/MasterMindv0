@@ -1,46 +1,73 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import StartGame from '../components/StartGame'
 import GameRow from '../components/gameRow'
 import GameRowActive from '../components/GameRowActive'
-import GameRowSelect from '../components/gameRowSelect'
+// import TheCode from '../components/TheCode'
 import { gameSettings } from '../gameConfig'
+import utils from '../utils'
 
 // 10 Game Row,
 //1 active, choose colors, when all 4 colors selected show ok button to submit
 //Already selected colors, - 4 pin box with color statuses, white for right color wrong place, black right color right place (Randomize display)
 //aviable Rows - no interactions
 // hidden row with colors
+let code = []
 
-const demoChoices = [
-  {
-    colors: [gameSettings.gameColors[1], gameSettings.gameColors[2], gameSettings.gameColors[3], gameSettings.gameColors[0]],
-    answers: []
-  },
-  {
-    colors: [gameSettings.gameColors[3], gameSettings.gameColors[4], gameSettings.gameColors[0], gameSettings.gameColors[5]],
-    answers: []
-  }
-]
 const Game = () => {
-  const [gameChoices, setGameChoices] = useState(demoChoices)
-  const [currentChoices, setCurrentChoices] = useState(['', '', '', ''])
+  const [gameChoices, setGameChoices] = useState([])
+  const [gameStatus, setGameStatus] = useState('notstarted')
 
-  const gameState = {
-    gameStarted: true,
-    gameColors: gameSettings.gameColors
+  useEffect(() => {
+    code = utils.generateRandomCode(4)
+    console.log(code)
+  }, [])
+
+  const startGame = () => {
+    setGameStatus('started')
+    setGameChoices([])
+    code = utils.generateRandomCode(4)
+    console.log(code)
   }
 
-  const handleChoice = (color, position) => {
-    const newChoices = [color, color, color, color]
-    setCurrentChoices(newChoices)
+  const handleChoice = (playerChoices) => {
+    console.log(code)
+    //check playerChoices with code
+    const answers = playerChoices.map((item, i) => {
+      return utils.checkGuessinCode(item, i, code)
+    })
+
+    //if answers.filter[correct] == 4 Code has been cracked
+    //randomize display of pins
+    if (answers.filter((answerStatus) => answerStatus === 'correct').length === 4) {
+      setGameStatus('codecracked')
+    }
+    const pins = answers
+      .filter((answerStatus) => answerStatus)
+      .map((answerStatus) => (answerStatus === 'correct' ? 'black' : 'white'))
+      .sort(utils.sortArray)
+
+    const newGameChoices = [...gameChoices, { colors: playerChoices, pins: pins || [] }]
+
+    setGameChoices(newGameChoices)
   }
 
   return (
     <div className="GameArea">
-      {gameChoices.map((choices) => (
-        <GameRow choices={choices} />
+      {gameChoices.map((choices, i) => (
+        <GameRow key={i} choices={choices} />
       ))}
-      <GameRowActive currentChoices={currentChoices} handleChoice={handleChoice} />
-      {/* <GameRowSelect /> */}
+      {gameStatus === 'notstarted' ? (
+        <StartGame startGame={startGame} />
+      ) : gameStatus === 'codecracked' ? (
+        <div>
+          Code Cracked <StartGame startGame={startGame} />
+        </div>
+      ) : (
+        <GameRowActive handleChoice={handleChoice} />
+      )}
+
+      {/* <TheCode /> */}
+      {/* <GameRow key="kode" choices={code} /> */}
     </div>
   )
 }

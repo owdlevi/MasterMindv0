@@ -13,9 +13,10 @@ const ColorOptions = ({ setColor }) => {
         display: 'flex',
         justifyContent: 'space-between'
       }}>
-      {gameSettings.gameColors.map((color) => (
+      {gameSettings.gameColors.map((color, i) => (
         <div
-          onClick={(e) => setColor(color.colorCode)}
+          key={i}
+          onClick={(e) => setColor(color)}
           className="item"
           sx={{
             width: '25px',

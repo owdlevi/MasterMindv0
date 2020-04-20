@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import Popover from '@material-ui/core/Popover'
 
 const Item = ({ color }) => {
   return (
