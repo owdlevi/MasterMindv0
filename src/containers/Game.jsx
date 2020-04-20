@@ -29,12 +29,17 @@ const Game = () => {
     gameColors: gameSettings.gameColors
   }
 
+  const handleChoice = (color, position) => {
+    const newChoices = [color, color, color, color]
+    setCurrentChoices(newChoices)
+  }
+
   return (
     <div className="GameArea">
       {gameChoices.map((choices) => (
         <GameRow choices={choices} />
       ))}
-      <GameRowActive currentChoices={currentChoices} />
+      <GameRowActive currentChoices={currentChoices} handleChoice={handleChoice} />
       {/* <GameRowSelect /> */}
     </div>
   )

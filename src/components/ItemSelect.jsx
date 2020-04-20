@@ -4,14 +4,20 @@ import { jsx } from 'theme-ui'
 import Popover from '@material-ui/core/Popover'
 import ColorOptions from './ColorOptions'
 
-const ItemSelect = ({ color }) => {
+const ItemSelect = ({ color, handleChoice }) => {
   const [anchorEl, setAnchorEl] = useState(null)
+  const [itemColor, setItemColor] = useState(null)
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
 
   const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const setColor = (color) => {
+    setItemColor(color)
     setAnchorEl(null)
   }
 
@@ -24,7 +30,8 @@ const ItemSelect = ({ color }) => {
         aria-describedby={id}
         onClick={handleClick}
         sx={{
-          backgroundColor: color.colorCode
+          // backgroundColor: color.colorCode
+          backgroundColor: itemColor
         }}></span>
 
       <Popover
@@ -40,7 +47,7 @@ const ItemSelect = ({ color }) => {
           vertical: 'bottom',
           horizontal: 'center'
         }}>
-        <ColorOptions />
+        <ColorOptions setColor={setColor} />
       </Popover>
     </div>
   )

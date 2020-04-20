@@ -3,7 +3,7 @@ import React from 'react'
 import { jsx } from 'theme-ui'
 import { gameSettings } from '../gameConfig'
 
-const ColorOptions = () => {
+const ColorOptions = ({ setColor }) => {
   return (
     <div
       sx={{
@@ -15,6 +15,7 @@ const ColorOptions = () => {
       }}>
       {gameSettings.gameColors.map((color) => (
         <div
+          onClick={(e) => setColor(color.colorCode)}
           className="item"
           sx={{
             width: '25px',
