@@ -27,8 +27,8 @@ export const gameSettings = {
     },
     {
       id: 6,
-      colorName: 'Indigo',
-      colorCode: 'indigo'
+      colorName: 'Violet',
+      colorCode: 'violet'
     }
   ],
   maxOption: 4

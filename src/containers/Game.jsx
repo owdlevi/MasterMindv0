@@ -49,23 +49,29 @@ const Game = () => {
   }
 
   return (
-    <div className="GameArea">
-      {gameStatus === 'notstarted' ? (
-        <StartGame startGame={startGame} />
-      ) : gameStatus === 'codecracked' ? (
-        <div>
-          Code Cracked <StartGame startGame={startGame} />
-        </div>
-      ) : (
-        <>
-          {gameChoices.map((choices, i) => (
-            <GameRow key={i} choices={choices} />
-          ))}
-          <GameRowActive handleChoice={handleChoice} />
-          {/* <TheCode /> */}
-          <TheCode key="kode" />
-        </>
-      )}
+    <div className="Game">
+      <h1>Mastermind 0.1</h1>
+      <div className="GameArea">
+        {gameStatus === 'notstarted' ? (
+          <StartGame startGame={startGame} />
+        ) : (
+          <>
+            {gameChoices.map((choices, i) => (
+              <GameRow key={i} choices={choices} />
+            ))}
+            {gameStatus !== 'codecracked' && <GameRowActive handleChoice={handleChoice} />}
+            {/* <TheCode /> */}
+            <TheCode key="kode" />
+            {gameStatus === 'codecracked' ? (
+              <div>
+                <StartGame startGame={startGame} />
+              </div>
+            ) : (
+              ``
+            )}
+          </>
+        )}
+      </div>
     </div>
   )
 }

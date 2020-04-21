@@ -1,19 +1,45 @@
+.Game {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+}
+.Game h1 {
+  color: #0e0e0e;
+  text-align: center;
+  font-size: 48px;
+  font-weight: 500;
+  margin: 0;
+}
 .GameArea {
   max-width: 420px;
   width: 100%;
-  margin: 50px auto;
+  margin: 40px auto;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
   background: #fafafa;
-  padding: 60px;
+  padding: 40px;
   border-radius: 5px;
+}
+@media (max-width: 450px) {
+  .GameArea {
+    max-width: 90%;
+    padding: 20px;
+  }
 }
 
 .row {
   display: flex;
   border: 0;
   margin-bottom: 10px;
+  justify-content: space-between;
+}
+.GameItems {
+  width: calc(100% - 80px);
+  display: flex;
+  flex-flow: row;
   padding-bottom: 10px;
   border-bottom: 1px solid #f2f2f2;
+  justify-content: space-between;
 }
 
 .row:last-child {
@@ -45,27 +71,6 @@
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
 }
 
-.red {
-  background: red;
-}
-
-.blue {
-  background: blue;
-  border: 3px solid white;
-}
-
-.blue:hover {
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
-}
-
-.green {
-  background: green;
-}
-
-.yellow {
-  background: yellow;
-}
-
 .game-select .row {
   margin-top: 20px;
   border-top: 1px solid #000;
@@ -89,37 +94,4 @@
   border-radius: 50%;
   border: 1px solid black;
   margin-bottom: 10px;
-}
-
-.answerPin.correct {
-  background: black;
-}
-
-.answerPin.incorrect {
-  background: white;
-}
-
-.toggle-button {
-  position: relative;
-}
-
-.codeOptions {
-  z-index: 2;
-  visibility: hidden;
-  position: absolute;
-  left: -10%;
-  top: 100px;
-  width: 260px;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  transition: all 0.5s ease-in-out;
-
-  padding: 20px;
-  background: #f6f6f6;
-}
-
-.toggle-button:hover .codeOptions {
-  visibility: visible;
-  top: -50px;
 }

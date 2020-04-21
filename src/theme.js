@@ -19,8 +19,8 @@ export default {
   colors: {
     text: '#000',
     background: 'lightskyblue',
-    todobg: '#f4f7fc',
-    primary: 'salmon',
+    title: '#f4f7fc',
+    primary: '#fafafa',
     modes: {
       dark: {
         text: '#000',

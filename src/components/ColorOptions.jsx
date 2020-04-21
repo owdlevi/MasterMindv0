@@ -18,8 +18,8 @@ const ColorOptions = ({ setColor }) => {
           onClick={(e) => setColor(color)}
           className="item"
           sx={{
-            width: '25px',
-            height: '25px'
+            width: '40px',
+            height: '40px'
           }}>
           <span
             sx={{

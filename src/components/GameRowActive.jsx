@@ -29,9 +29,11 @@ const GameRowActive = ({ handleChoice }) => {
 
   return (
     <div className="row">
-      {currentChoices.map((choices, index) => (
-        <ItemSelect key={index} color={choices} index={index} updateChoice={updateChoice} />
-      ))}
+      <div className="GameItems">
+        {currentChoices.map((choices, index) => (
+          <ItemSelect key={index} color={choices} index={index} updateChoice={updateChoice} />
+        ))}
+      </div>
       {showSubmit && <SubmitButton handleSubmit={handleSubmit} />}
     </div>
   )
