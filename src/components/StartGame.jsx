@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import Fab from '@material-ui/core/Fab'
 import Button from '@material-ui/core/Button'
 import FiberNewIcon from '@material-ui/icons/FiberNew'
 

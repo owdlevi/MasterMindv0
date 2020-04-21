@@ -3,10 +3,11 @@
   width: 100%;
   margin: 50px auto;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
-  background: #fff;
+  background: #fafafa;
   padding: 60px;
   border-radius: 5px;
 }
+
 .row {
   display: flex;
   border: 0;
@@ -14,9 +15,11 @@
   padding-bottom: 10px;
   border-bottom: 1px solid #f2f2f2;
 }
+
 .row:last-child {
   margin-bottom: 0;
 }
+
 .item {
   align-items: center;
   border-radius: 50%;
@@ -41,6 +44,7 @@
 .toggle-button:hover {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
 }
+
 .red {
   background: red;
 }
@@ -49,12 +53,15 @@
   background: blue;
   border: 3px solid white;
 }
+
 .blue:hover {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
 }
+
 .green {
   background: green;
 }
+
 .yellow {
   background: yellow;
 }
@@ -73,6 +80,7 @@
   flex-direction: row;
   padding-top: 5px;
 }
+
 .answerPin {
   display: block;
   height: 15px;
@@ -86,6 +94,7 @@
 .answerPin.correct {
   background: black;
 }
+
 .answerPin.incorrect {
   background: white;
 }
@@ -93,6 +102,7 @@
 .toggle-button {
   position: relative;
 }
+
 .codeOptions {
   z-index: 2;
   visibility: hidden;

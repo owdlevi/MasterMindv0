@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import StartGame from '../components/StartGame'
 import GameRow from '../components/gameRow'
 import GameRowActive from '../components/GameRowActive'
-// import TheCode from '../components/TheCode'
-import { gameSettings } from '../gameConfig'
+import TheCode from '../components/TheCode'
 import utils from '../utils'
 
 // 10 Game Row,
@@ -11,16 +10,14 @@ import utils from '../utils'
 //Already selected colors, - 4 pin box with color statuses, white for right color wrong place, black right color right place (Randomize display)
 //aviable Rows - no interactions
 // hidden row with colors
+// Create MasterMind Multi Player!!!!! One player to generate the code, others to crack, wins the player with less guess and time!!!!
+// https://en.wikipedia.org/wiki/Mastermind_(board_game)
+
 let code = []
 
 const Game = () => {
   const [gameChoices, setGameChoices] = useState([])
   const [gameStatus, setGameStatus] = useState('notstarted')
-
-  useEffect(() => {
-    code = utils.generateRandomCode(4)
-    console.log(code)
-  }, [])
 
   const startGame = () => {
     setGameStatus('started')
@@ -53,9 +50,6 @@ const Game = () => {
 
   return (
     <div className="GameArea">
-      {gameChoices.map((choices, i) => (
-        <GameRow key={i} choices={choices} />
-      ))}
       {gameStatus === 'notstarted' ? (
         <StartGame startGame={startGame} />
       ) : gameStatus === 'codecracked' ? (
@@ -63,11 +57,15 @@ const Game = () => {
           Code Cracked <StartGame startGame={startGame} />
         </div>
       ) : (
-        <GameRowActive handleChoice={handleChoice} />
+        <>
+          {gameChoices.map((choices, i) => (
+            <GameRow key={i} choices={choices} />
+          ))}
+          <GameRowActive handleChoice={handleChoice} />
+          {/* <TheCode /> */}
+          <TheCode key="kode" />
+        </>
       )}
-
-      {/* <TheCode /> */}
-      {/* <GameRow key="kode" choices={code} /> */}
     </div>
   )
 }

@@ -6,9 +6,8 @@ import ColorOptions from './ColorOptions'
 
 const ItemSelect = ({ index, color, updateChoice }) => {
   const [anchorEl, setAnchorEl] = useState(null)
-  const [itemColor, setItemColor] = useState(null)
 
-  const handleClick = (event) => {
+  const handleOpen = (event) => {
     setAnchorEl(event.currentTarget)
   }
 
@@ -28,7 +27,7 @@ const ItemSelect = ({ index, color, updateChoice }) => {
     <div className="item">
       <span
         aria-describedby={id}
-        onClick={handleClick}
+        onClick={handleOpen}
         sx={{
           backgroundColor: color.colorCode ? color.colorCode : ''
         }}></span>
