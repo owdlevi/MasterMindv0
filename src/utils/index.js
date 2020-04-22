@@ -23,6 +23,10 @@ const utils = {
     else if (code.includes(guess)) return 'wrongposition'
     return null
   },
+  onlyUnique: (value, index, self) => {
+    return self.indexOf(value) === index
+  },
+
   sortArray: (a, b) => {
     return Math.random() - 0.5
   }

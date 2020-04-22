@@ -95,3 +95,13 @@
   border: 1px solid black;
   margin-bottom: 10px;
 }
+
+.Clock {
+  display: flex;
+  flex-flow: row;
+}
+.Clock span {
+  display: inline-block;
+  width: 22px;
+  text-align: right;
+}

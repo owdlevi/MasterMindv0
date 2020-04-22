@@ -32,7 +32,7 @@ const Game = () => {
   const handleChoice = (playerChoices) => {
     console.log(code)
     //check playerChoices with code
-    const answers = playerChoices.map((item, i) => {
+    const answers = playerChoices.filter(utils.onlyUnique).map((item, i) => {
       return utils.checkGuessinCode(item, i, code)
     })
 
@@ -55,19 +55,22 @@ const Game = () => {
     <div className="GameArea">
       {gameStatus === 'notstarted' ? (
         <StartGame startGame={startGame} />
-      ) : gameStatus === 'codecracked' ? (
-        <div>
-          Code Cracked <StartGame startGame={startGame} />
-        </div>
       ) : (
         <>
-          <TopGame round={gameChoices.length + 1} startTime={startTime} />
+          <TopGame round={gameChoices.length + 1} startTime={startTime} stopTimer={gameStatus === 'codecracked'} />
           {gameChoices.map((choices, i) => (
             <GameRow key={i} choices={choices} />
           ))}
-          <GameRowActive handleChoice={handleChoice} />
+          {gameStatus !== 'codecracked' && <GameRowActive handleChoice={handleChoice} />}
           {/* <TheCode /> */}
-          <TheCode key="kode" />
+          <TheCode key="kode" showCode={gameStatus === 'codecracked'} theCode={code} />
+          {gameStatus === 'codecracked' ? (
+            <div>
+              Code Cracked <StartGame startGame={startGame} />
+            </div>
+          ) : (
+            ``
+          )}
         </>
       )}
     </div>

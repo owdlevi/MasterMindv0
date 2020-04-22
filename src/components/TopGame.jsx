@@ -1,9 +1,8 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import React from 'react'
 import Clock from './Clock'
 
-const TopGame = ({ round, startTime }) => {
+const TopGame = ({ round, startTime, stopTimer }) => {
   return (
     <div
       sx={{
@@ -23,12 +22,13 @@ const TopGame = ({ round, startTime }) => {
         Round: <strong>{round}</strong>
       </h2>
       <div
+        className="Clock"
         sx={{
           fontSize: '18px',
           lineHeight: '18px',
-          fontWeight: '700'
+          fontWeight: '400'
         }}>
-        <Clock startTime={startTime} />
+        <Clock startTime={startTime} stopTimer={stopTimer} />
       </div>
     </div>
   )
