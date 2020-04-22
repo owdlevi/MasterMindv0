@@ -4,6 +4,7 @@ import GameRow from '../components/gameRow'
 import GameRowActive from '../components/GameRowActive'
 import TheCode from '../components/TheCode'
 import utils from '../utils'
+import TopGame from '../components/TopGame'
 
 // 10 Game Row,
 //1 active, choose colors, when all 4 colors selected show ok button to submit
@@ -18,10 +19,12 @@ let code = []
 const Game = () => {
   const [gameChoices, setGameChoices] = useState([])
   const [gameStatus, setGameStatus] = useState('notstarted')
+  const [startTime, setStartTime] = useState(null)
 
   const startGame = () => {
     setGameStatus('started')
     setGameChoices([])
+    setStartTime(Date.now())
     code = utils.generateRandomCode(4)
     console.log(code)
   }
@@ -49,29 +52,24 @@ const Game = () => {
   }
 
   return (
-    <div className="Game">
-      <h1>Mastermind 0.1</h1>
-      <div className="GameArea">
-        {gameStatus === 'notstarted' ? (
-          <StartGame startGame={startGame} />
-        ) : (
-          <>
-            {gameChoices.map((choices, i) => (
-              <GameRow key={i} choices={choices} />
-            ))}
-            {gameStatus !== 'codecracked' && <GameRowActive handleChoice={handleChoice} />}
-            {/* <TheCode /> */}
-            <TheCode key="kode" />
-            {gameStatus === 'codecracked' ? (
-              <div>
-                <StartGame startGame={startGame} />
-              </div>
-            ) : (
-              ``
-            )}
-          </>
-        )}
-      </div>
+    <div className="GameArea">
+      {gameStatus === 'notstarted' ? (
+        <StartGame startGame={startGame} />
+      ) : gameStatus === 'codecracked' ? (
+        <div>
+          Code Cracked <StartGame startGame={startGame} />
+        </div>
+      ) : (
+        <>
+          <TopGame round={gameChoices.length + 1} startTime={startTime} />
+          {gameChoices.map((choices, i) => (
+            <GameRow key={i} choices={choices} />
+          ))}
+          <GameRowActive handleChoice={handleChoice} />
+          {/* <TheCode /> */}
+          <TheCode key="kode" />
+        </>
+      )}
     </div>
   )
 }
