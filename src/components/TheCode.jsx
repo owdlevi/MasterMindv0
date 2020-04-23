@@ -30,11 +30,12 @@ const TheCode = ({ showCode, theCode }) => {
   return (
     <div>
       <div
-        className="thecode GameItems"
+        className="thecode"
         sx={{
-          height: '60px',
           position: 'relative',
-          borderRadius: '5px'
+          borderRadius: '5px',
+          width: 'calc(100% - 80px)',
+          background: 'background'
         }}>
         <animated.div
           style={spring}

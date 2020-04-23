@@ -19,7 +19,13 @@ const ColorOptions = ({ setColor }) => {
           className="item"
           sx={{
             width: '40px',
-            height: '40px'
+            height: '40px',
+            marginRight: '10px',
+            '@media screen and (max-width: 450px)': {
+              width: '25px',
+              height: '25px',
+              marginRight: '5px'
+            }
           }}>
           <span
             sx={{
