@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { useState } from 'react'
 import { jsx } from 'theme-ui'
+import { useTrail, animated } from 'react-spring'
 import ItemSelect from './ItemSelect'
 import SubmitButton from './SubmitButton'
 
@@ -9,6 +10,7 @@ import SubmitButton from './SubmitButton'
 const GameRowActive = ({ handleChoice }) => {
   const [currentChoices, setCurrentChoices] = useState(['', '', '', ''])
   const [showSubmit, setShowSubmit] = useState(false)
+  const trail = useTrail(currentChoices.length, { opacity: 1, from: { opacity: 0 } })
 
   const updateChoice = (color, index) => {
     const newChoices = currentChoices.map((item, j) => {
@@ -30,8 +32,10 @@ const GameRowActive = ({ handleChoice }) => {
   return (
     <div className="row">
       <div className="GameItems">
-        {currentChoices.map((choices, index) => (
-          <ItemSelect key={index} color={choices} index={index} updateChoice={updateChoice} />
+        {trail.map((props, i) => (
+          <animated.div style={props} key={i}>
+            <ItemSelect color={currentChoices[i]} index={i} updateChoice={updateChoice} />
+          </animated.div>
         ))}
       </div>
       {showSubmit && <SubmitButton handleSubmit={handleSubmit} />}
