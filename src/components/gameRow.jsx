@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 import Item from './Item'
+import Answer from './Answers'
 
 const GameRow = ({ choices }) => {
   return (
@@ -10,11 +11,7 @@ const GameRow = ({ choices }) => {
           <Item key={i} color={color} />
         ))}
       </div>
-      <div className="answers">
-        {choices.pins.map((pin, i) => (
-          <span key={i} className="answerPin" sx={{ backgroundColor: pin }} />
-        ))}
-      </div>
+      <Answer pins={choices.pins} />
     </div>
   )
 }

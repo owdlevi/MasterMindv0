@@ -94,7 +94,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  padding-top: 5px;
+  padding-top: 10px;
 }
 
 .answerPin {
@@ -103,8 +103,9 @@ body {
   width: 15px;
   margin-right: 5px;
   border-radius: 50%;
-  border: 1px solid black;
+  border: 2px solid black;
   margin-bottom: 10px;
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302), 0 1px 3px 1px rgba(60, 64, 67, 0.149);
 }
 
 .Clock {
