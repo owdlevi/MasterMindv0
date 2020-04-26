@@ -10,7 +10,8 @@ import SubmitButton from './SubmitButton'
 const GameRowActive = ({ handleChoice }) => {
   const [currentChoices, setCurrentChoices] = useState(['', '', '', ''])
   const [showSubmit, setShowSubmit] = useState(false)
-  const trail = useTrail(currentChoices.length, { opacity: 1, from: { opacity: 0 } })
+  const [to, setTo] = useState(1)
+  const trail = useTrail(currentChoices.length, { opacity: to ? 1 : 0, from: { opacity: 0 } })
 
   const updateChoice = (color, index) => {
     const newChoices = currentChoices.map((item, j) => {
@@ -26,6 +27,7 @@ const GameRowActive = ({ handleChoice }) => {
   const handleSubmit = () => {
     handleChoice(currentChoices)
     setShowSubmit(false)
+    setTo(to + 1)
     setCurrentChoices(['', '', '', ''])
   }
 

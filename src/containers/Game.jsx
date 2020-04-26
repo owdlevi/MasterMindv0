@@ -3,8 +3,9 @@ import StartGame from '../components/StartGame'
 import GameRow from '../components/gameRow'
 import GameRowActive from '../components/GameRowActive'
 import TheCode from '../components/TheCode'
-import utils from '../utils'
 import TopGame from '../components/TopGame'
+import CodeCracked from '../components/CodeCracked'
+import utils from '../utils'
 
 // 10 Game Row,
 //1 active, choose colors, when all 4 colors selected show ok button to submit
@@ -20,6 +21,8 @@ const Game = () => {
   const [gameChoices, setGameChoices] = useState([])
   const [gameStatus, setGameStatus] = useState('notstarted')
   const [startTime, setStartTime] = useState(null)
+  const [round, setRound] = useState(1)
+  const [result, setResult] = useState(null)
 
   const startGame = () => {
     setGameStatus('started')
@@ -30,7 +33,6 @@ const Game = () => {
   }
 
   const handleChoice = (playerChoices) => {
-    console.log(code)
     //check playerChoices with code
     const answers = playerChoices.filter(utils.onlyUnique).map((item, i) => {
       return utils.checkGuessinCode(item, i, code)
@@ -39,8 +41,8 @@ const Game = () => {
     //if answers.filter[correct] == 4 Code has been cracked
     //randomize display of pins
     if (answers.filter((answerStatus) => answerStatus === 'correct').length === 4) {
-      setGameStatus('codecracked')
-    }
+      gameIsOver()
+    } else setRound(round + 1)
     const pins = answers
       .filter((answerStatus) => answerStatus)
       .map((answerStatus) => (answerStatus === 'correct' ? 'black' : 'white'))
@@ -51,26 +53,37 @@ const Game = () => {
     setGameChoices(newGameChoices)
   }
 
+  const gameIsOver = () => {
+    setGameStatus('codecracked')
+    const stopTime = Date.now()
+    const timeDifference = Math.floor((stopTime - startTime) / 1000)
+    const minutes = Math.floor((timeDifference / 60) % 60)
+    const seconds = timeDifference % 60
+    const totalPoints = round * 30 + timeDifference
+    setResult({
+      round,
+      time: {
+        minutes,
+        seconds
+      },
+      totalPoints
+    })
+  }
+
   return (
     <div className="GameArea">
       {gameStatus === 'notstarted' ? (
         <StartGame startGame={startGame} />
       ) : (
         <>
-          <TopGame round={gameChoices.length + 1} startTime={startTime} stopTimer={gameStatus === 'codecracked'} />
+          <TopGame round={round} startTime={startTime} stopTimer={gameStatus === 'codecracked'} />
           {gameChoices.map((choices, i) => (
             <GameRow key={i} choices={choices} />
           ))}
           {gameStatus !== 'codecracked' && <GameRowActive handleChoice={handleChoice} />}
           {/* <TheCode /> */}
           <TheCode key="kode" showCode={gameStatus === 'codecracked'} theCode={code} />
-          {gameStatus === 'codecracked' ? (
-            <div>
-              Code Cracked <StartGame startGame={startGame} />
-            </div>
-          ) : (
-            ``
-          )}
+          {gameStatus === 'codecracked' ? <CodeCracked startGame={startGame} result={result} /> : ``}
         </>
       )}
     </div>
