@@ -13,7 +13,7 @@ const CodeCracked = ({ startGame, result }) => {
           fontWeight: 600
         }}>
         Congratulations you cracked the code in {result.round} {result.round > 1 ? `rounds ` : `round `}
-        {result.time.minutes > 1 ? `${result.time.minutes} minute ` : ``} and {result.time.seconds} seconds.
+        {result.time.minutes > 0 ? `${result.time.minutes} minute ` : ``} and {result.time.seconds} seconds.
         <span
           sx={{
             display: 'inline-block',

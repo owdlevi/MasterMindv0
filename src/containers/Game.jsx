@@ -27,6 +27,7 @@ const Game = () => {
   const startGame = () => {
     setGameStatus('started')
     setGameChoices([])
+    setRound(1)
     setStartTime(Date.now())
     code = utils.generateRandomCode(4)
     console.log(code)
