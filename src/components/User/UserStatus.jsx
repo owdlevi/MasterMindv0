@@ -29,7 +29,7 @@ const UserStatus = (props) => {
         {user.photoURL ? (
           <img
             sx={{
-              maxWidth: '50px',
+              maxWidth: '40px',
               borderRadius: '50%'
             }}
             src={user.photoURL}

@@ -47,7 +47,9 @@ export default {
       width: '100%'
     },
     navlink: {
-      color: 'color.text'
+      color: 'color.text',
+      textDecoration: 'none',
+      display: 'inline-block'
     },
     button: {
       color: 'color.text'

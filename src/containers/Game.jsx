@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import StartGame from '../components/StartGame'
 import GameRow from '../components/gameRow'
 import GameRowActive from '../components/GameRowActive'
@@ -23,6 +24,8 @@ const Game = () => {
   const [startTime, setStartTime] = useState(null)
   const [round, setRound] = useState(1)
   const [result, setResult] = useState(null)
+
+  let { gameId } = useParams()
 
   const startGame = () => {
     setGameStatus('started')
@@ -72,6 +75,7 @@ const Game = () => {
 
   return (
     <div className="GameArea">
+      {gameId && <h2>{gameId}</h2>}
       {gameStatus === 'notstarted' ? (
         <StartGame startGame={startGame} />
       ) : (
