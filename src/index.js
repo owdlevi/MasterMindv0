@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom'
 import { ThemeProvider, jsx } from 'theme-ui'
 import theme from './theme'
 import Game from './containers/Game'
+import Layout from './containers/Layout'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 import './styles.css'
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <Layout theme={theme}>
       <Router>
         <Switch>
           <Route path="/game/:gameId">
@@ -21,7 +22,7 @@ const App = () => {
           </Route>
         </Switch>
       </Router>
-    </ThemeProvider>
+    </Layout>
   )
 }
 
