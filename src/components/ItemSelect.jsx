@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { jsx } from 'theme-ui'
 import Popover from '@material-ui/core/Popover'
+import Fab from '@material-ui/core/Fab'
 import ColorOptions from './ColorOptions'
 
 const ItemSelect = ({ index, color, updateChoice }) => {
@@ -24,14 +25,17 @@ const ItemSelect = ({ index, color, updateChoice }) => {
   const id = open ? 'simple-popover' : undefined
 
   return (
-    <div className="item">
-      <span
+    <div>
+      <Fab
         aria-describedby={id}
         onClick={handleOpen}
-        sx={{
-          backgroundColor: color.colorCode ? color.colorCode : ''
-        }}></span>
-
+        size="small"
+        aria-label="choose color"
+        style={{
+          backgroundColor: color.colorCode ? color.colorCode : '#ffffff',
+          width: '50px',
+          height: '50px'
+        }}></Fab>
       <Popover
         id={id}
         open={open}

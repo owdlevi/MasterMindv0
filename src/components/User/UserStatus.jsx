@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { jsx } from 'theme-ui'
 import Login from './Login'
+import MyGameRooms from '../MyGameRooms'
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -11,6 +12,7 @@ import logout from '../../utils/auth/logout'
 
 const UserStatus = (props) => {
   const [anchorEl, setAnchorEl] = useState(null)
+  const [gameRoomOpen, setGameRoomOpen] = useState(false)
 
   const { initializing, user } = useFirebaseAuth()
   const AuthUser = get(useAuthUserInfo(), 'AuthUser', null)
@@ -21,6 +23,10 @@ const UserStatus = (props) => {
 
   const handleClose = () => {
     setAnchorEl(null)
+  }
+
+  const handleOpenGameRooms = () => {
+    setGameRoomOpen(!gameRoomOpen)
   }
 
   return user ? (
@@ -41,7 +47,7 @@ const UserStatus = (props) => {
       </div>
 
       <Menu id="account-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleOpenGameRooms}>My Game Rooms</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem
           onClick={async () => {
@@ -54,6 +60,7 @@ const UserStatus = (props) => {
           Logout
         </MenuItem>
       </Menu>
+      <MyGameRooms open={gameRoomOpen} close={handleOpenGameRooms} />
     </div>
   ) : (
     <Login />

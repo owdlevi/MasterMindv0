@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
 import StartGame from '../components/StartGame'
 import GameRow from '../components/gameRow'
 import GameRowActive from '../components/GameRowActive'
 import TheCode from '../components/TheCode'
 import TopGame from '../components/TopGame'
 import CodeCracked from '../components/CodeCracked'
+import Kawaii from '../components/Kawaii/Kawaii'
 import utils from '../utils'
+import { Flex } from 'theme-ui'
 
 // 10 Game Row,
 //1 active, choose colors, when all 4 colors selected show ok button to submit
@@ -18,19 +19,19 @@ import utils from '../utils'
 
 let code = []
 
-const Game = () => {
+const Game = ({ privateGame }) => {
   const [gameChoices, setGameChoices] = useState([])
   const [gameStatus, setGameStatus] = useState('notstarted')
   const [startTime, setStartTime] = useState(null)
   const [round, setRound] = useState(1)
   const [result, setResult] = useState(null)
-
-  let { gameId } = useParams()
+  const [mood, setMood] = useState('happy')
 
   const startGame = () => {
     setGameStatus('started')
     setGameChoices([])
     setStartTime(Date.now())
+    setMood('excited')
     code = utils.generateRandomCode(4)
     console.log(code)
   }
@@ -46,6 +47,9 @@ const Game = () => {
     if (answers.filter((answerStatus) => answerStatus === 'correct').length === 4) {
       gameIsOver()
     } else setRound(round + 1)
+
+    if (round > 2) setMood('sad')
+
     const pins = answers
       .filter((answerStatus) => answerStatus)
       .map((answerStatus) => (answerStatus === 'correct' ? 'black' : 'white'))
@@ -74,22 +78,33 @@ const Game = () => {
   }
 
   return (
-    <div className="GameArea">
-      {gameId && <h2>{gameId}</h2>}
-      {gameStatus === 'notstarted' ? (
-        <StartGame startGame={startGame} />
-      ) : (
-        <>
-          <TopGame round={round} startTime={startTime} stopTimer={gameStatus === 'codecracked'} />
-          {gameChoices.map((choices, i) => (
-            <GameRow key={i} choices={choices} />
-          ))}
-          {gameStatus !== 'codecracked' && <GameRowActive handleChoice={handleChoice} />}
-          {/* <TheCode /> */}
-          <TheCode key="kode" showCode={gameStatus === 'codecracked'} theCode={code} />
-          {gameStatus === 'codecracked' ? <CodeCracked startGame={startGame} result={result} /> : ``}
-        </>
-      )}
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'top',
+        justifyContent: 'center',
+        margin: '40px auto',
+        minHeight: '300px'
+      }}>
+      <div className="GameStatus">
+        <Kawaii mood={mood} />
+      </div>
+      <div className="GameArea">
+        {gameStatus === 'notstarted' ? (
+          <StartGame startGame={startGame} />
+        ) : (
+          <>
+            <TopGame round={round} startTime={startTime} stopTimer={gameStatus === 'codecracked'} />
+            {gameChoices.map((choices, i) => (
+              <GameRow key={i} choices={choices} />
+            ))}
+            {gameStatus !== 'codecracked' && <GameRowActive handleChoice={handleChoice} />}
+            {/* <TheCode /> */}
+            <TheCode key="kode" showCode={gameStatus === 'codecracked'} theCode={code} />
+            {gameStatus === 'codecracked' ? <CodeCracked startGame={startGame} result={result} /> : ``}
+          </>
+        )}
+      </div>
     </div>
   )
 }
