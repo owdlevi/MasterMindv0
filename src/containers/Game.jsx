@@ -10,6 +10,7 @@ import CodeCracked from '../components/CodeCracked'
 import Kawaii from '../components/Kawaii/Kawaii'
 import LeaderBord from '../components/LeaderBord'
 import utils from '../utils'
+import { loadFirestore } from '../utils/db'
 import { gameSettings } from '../gameConfig'
 
 // 10 Game Row,
@@ -94,6 +95,26 @@ const Game = ({ privateGame }) => {
       },
       totalPoints
     })
+
+    if (status === 'codecracked' && user.uid) storeScore(totalPoints)
+  }
+
+  const storeScore = async (totalPoints) => {
+    const storeCollection = 'LeaderBord'
+
+    const firebase = await loadFirestore()
+    const score = {
+      user: user.uid,
+      totalPoints
+    }
+
+    firebase
+      .firestore()
+      .collection(storeCollection)
+      .doc()
+      .set(score)
+      // .then(() => setTodo(''))
+      .catch((error) => console.error(error))
   }
 
   return (
