@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
+import Fab from '@material-ui/core/Fab'
 import { gameSettings } from '../gameConfig'
 
 const ColorOptions = ({ setColor }) => {
@@ -16,7 +17,6 @@ const ColorOptions = ({ setColor }) => {
         <div
           key={i}
           onClick={(e) => setColor(color)}
-          className="item"
           sx={{
             width: '40px',
             height: '40px',
@@ -27,10 +27,14 @@ const ColorOptions = ({ setColor }) => {
               marginRight: '5px'
             }
           }}>
-          <span
-            sx={{
-              backgroundColor: color.colorCode
-            }}></span>
+          <Fab
+            size="small"
+            aria-label="choose color"
+            style={{
+              backgroundColor: color.colorCode ? color.colorCode : '#ffffff',
+              width: '100%',
+              height: '100%'
+            }}>{``}</Fab>
         </div>
       ))}
     </div>

@@ -17,7 +17,8 @@ const TopGame = ({ round, startTime, stopTimer }) => {
           fontSize: '18px',
           lineHeight: '18px',
           fontWeight: '500',
-          m: 0
+          m: 0,
+          color: '#ffffff'
         }}>
         Round: <strong>{round}</strong>
       </h2>
@@ -26,7 +27,8 @@ const TopGame = ({ round, startTime, stopTimer }) => {
         sx={{
           fontSize: '18px',
           lineHeight: '18px',
-          fontWeight: '400'
+          fontWeight: '400',
+          color: '#ffffff'
         }}>
         <Clock startTime={startTime} stopTimer={stopTimer} />
       </div>

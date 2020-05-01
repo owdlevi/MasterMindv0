@@ -1,4 +1,13 @@
 export const gameSettings = {
+  maxRound: 10,
+  maxTime: 10 * 60 * 1000,
+  scoreStart: 10000,
+  gameStatus: {
+    notstarted: 'notstarted',
+    started: 'started',
+    codecracked: 'codecracked',
+    codenotcracked: 'codenotcracked'
+  },
   gameColors: [
     {
       id: 1,
