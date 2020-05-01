@@ -34,7 +34,7 @@ const ColorOptions = ({ setColor }) => {
               backgroundColor: color.colorCode ? color.colorCode : '#ffffff',
               width: '100%',
               height: '100%'
-            }}></Fab>
+            }}>{``}</Fab>
         </div>
       ))}
     </div>

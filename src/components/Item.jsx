@@ -12,7 +12,7 @@ const Item = ({ color }) => {
           backgroundColor: color.colorCode ? color.colorCode : '#ffffff',
           width: '50px',
           height: '50px'
-        }}></Fab>
+        }}>{``}</Fab>
       {/* <span
         sx={{
           backgroundColor: color.colorCode

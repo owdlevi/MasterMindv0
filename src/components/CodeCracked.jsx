@@ -2,7 +2,7 @@
 import { jsx } from 'theme-ui'
 import StartGame from './StartGame'
 
-const CodeCracked = ({ startGame, result }) => {
+const CodeCracked = ({ gameStatus, startGame, result }) => {
   return (
     <div>
       <div
@@ -12,8 +12,18 @@ const CodeCracked = ({ startGame, result }) => {
           fontSize: '18px',
           fontWeight: 600
         }}>
-        Congratulations you cracked the code in {result.round} {result.round > 1 ? `rounds ` : `round `}
-        {result.time.minutes > 1 ? `${result.time.minutes} minute ` : ``} and {result.time.seconds} seconds.
+        {gameStatus === 'codecracked' && (
+          <div>
+            Congratulations you cracked the code in {result.round} {result.round > 1 ? `rounds ` : `round `}
+            {result.time.minutes > 1 ? `${result.time.minutes} minute ` : ``} and {result.time.seconds} seconds.
+          </div>
+        )}
+        {gameStatus === 'codenotcracked' && (
+          <div>
+            Oh snap you didn't found the code. Your result is {result.round} {result.round > 1 ? `rounds ` : `round `}
+            {result.time.minutes > 1 ? `${result.time.minutes} minute ` : ``} and {result.time.seconds} seconds.
+          </div>
+        )}
         <span
           sx={{
             display: 'inline-block',

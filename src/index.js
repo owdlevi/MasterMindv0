@@ -1,6 +1,5 @@
-/** @jsx jsx */
+import React from 'react'
 import ReactDOM from 'react-dom'
-import { ThemeProvider, jsx } from 'theme-ui'
 import theme from './theme'
 import Game from './containers/Game'
 import GameRoom from './components/GameRoom'

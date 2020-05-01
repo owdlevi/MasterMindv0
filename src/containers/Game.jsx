@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { get } from 'lodash/object'
+import { useFirebaseAuth, useAuthUserInfo } from '../utils/auth/hooks'
 import StartGame from '../components/StartGame'
 import GameRow from '../components/gameRow'
 import GameRowActive from '../components/GameRowActive'
@@ -6,8 +8,9 @@ import TheCode from '../components/TheCode'
 import TopGame from '../components/TopGame'
 import CodeCracked from '../components/CodeCracked'
 import Kawaii from '../components/Kawaii/Kawaii'
+import LeaderBord from '../components/LeaderBord'
 import utils from '../utils'
-import { Flex } from 'theme-ui'
+import { gameSettings } from '../gameConfig'
 
 // 10 Game Row,
 //1 active, choose colors, when all 4 colors selected show ok button to submit
@@ -27,6 +30,9 @@ const Game = ({ privateGame }) => {
   const [result, setResult] = useState(null)
   const [mood, setMood] = useState('happy')
 
+  const { initializing, user } = useFirebaseAuth()
+  const AuthUser = get(useAuthUserInfo(), 'AuthUser', null)
+
   const startGame = () => {
     setGameStatus('started')
     setGameChoices([])
@@ -42,13 +48,26 @@ const Game = ({ privateGame }) => {
       return utils.checkGuessinCode(item, i, code)
     })
 
+    //UseEffect check every second if time is more than 10
+    // const stopTime = Date.now()
+    // const timeDifference = Math.floor(stopTime - startTime)
+    // else if (timeDifference >= gameSettings.maxTime) {
+    //   gameIsOver('codenotcracked')
+    //   setMood('sad')
+    //   return
+    // }
+
     //if answers.filter[correct] == 4 Code has been cracked
     //randomize display of pins
     if (answers.filter((answerStatus) => answerStatus === 'correct').length === 4) {
-      gameIsOver()
+      gameIsOver('codecracked')
+    } else if (round === gameSettings.maxRound) {
+      gameIsOver('codenotcracked')
+      setMood('sad')
+      return
     } else setRound(round + 1)
 
-    if (round > 2) setMood('sad')
+    // if (round > 2) setMood('sad')
 
     const pins = answers
       .filter((answerStatus) => answerStatus)
@@ -60,13 +79,13 @@ const Game = ({ privateGame }) => {
     setGameChoices(newGameChoices)
   }
 
-  const gameIsOver = () => {
-    setGameStatus('codecracked')
+  const gameIsOver = (status) => {
+    setGameStatus(status)
     const stopTime = Date.now()
     const timeDifference = Math.floor((stopTime - startTime) / 1000)
     const minutes = Math.floor((timeDifference / 60) % 60)
     const seconds = timeDifference % 60
-    const totalPoints = round * 30 + timeDifference
+    const totalPoints = gameSettings.scoreStart - (round * 30 + timeDifference)
     setResult({
       round,
       time: {
@@ -87,6 +106,9 @@ const Game = ({ privateGame }) => {
         minHeight: '300px'
       }}>
       <div className="GameStatus">
+        {gameStatus !== 'notstarted' && (
+          <TopGame round={round} startTime={startTime} stopTimer={gameStatus === 'codecracked' || gameStatus === 'codenotcracked'} />
+        )}
         <Kawaii mood={mood} />
       </div>
       <div className="GameArea">
@@ -94,17 +116,22 @@ const Game = ({ privateGame }) => {
           <StartGame startGame={startGame} />
         ) : (
           <>
-            <TopGame round={round} startTime={startTime} stopTimer={gameStatus === 'codecracked'} />
+            {/* <TopGame round={round} startTime={startTime} stopTimer={gameStatus === 'codecracked'} /> */}
             {gameChoices.map((choices, i) => (
               <GameRow key={i} choices={choices} />
             ))}
             {gameStatus !== 'codecracked' && <GameRowActive handleChoice={handleChoice} />}
             {/* <TheCode /> */}
             <TheCode key="kode" showCode={gameStatus === 'codecracked'} theCode={code} />
-            {gameStatus === 'codecracked' ? <CodeCracked startGame={startGame} result={result} /> : ``}
+            {gameStatus === 'codecracked' || gameStatus === 'codenotcracked' ? (
+              <CodeCracked gameStatus={gameStatus} startGame={startGame} result={result} />
+            ) : (
+              ``
+            )}
           </>
         )}
       </div>
+      {user && <LeaderBord />}
     </div>
   )
 }

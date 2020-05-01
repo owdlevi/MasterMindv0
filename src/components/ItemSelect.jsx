@@ -35,7 +35,7 @@ const ItemSelect = ({ index, color, updateChoice }) => {
           backgroundColor: color.colorCode ? color.colorCode : '#ffffff',
           width: '50px',
           height: '50px'
-        }}></Fab>
+        }}>{``}</Fab>
       <Popover
         id={id}
         open={open}

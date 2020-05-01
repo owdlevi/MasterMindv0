@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import initFirebase from './initFirebase'
+import initFirebase from '../db'
 import { setSession } from './firebaseSessionHandler'
 import { createAuthUserInfo } from './user'
 
@@ -22,7 +22,7 @@ export const useFirebaseAuth = () => {
     const user = firebase.auth().currentUser
     return {
       initializing: !user,
-      user,
+      user
     }
   })
 
