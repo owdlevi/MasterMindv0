@@ -1,7 +1,7 @@
 export const gameSettings = {
   maxRound: 10,
   maxTime: 10 * 60 * 1000,
-  scoreStart: 10000,
+  scoreStart: 1000,
   gameStatus: {
     notstarted: 'notstarted',
     started: 'started',

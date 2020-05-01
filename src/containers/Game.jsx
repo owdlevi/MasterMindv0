@@ -13,6 +13,7 @@ import utils from '../utils'
 import { loadFirestore } from '../utils/db'
 import { gameSettings } from '../gameConfig'
 
+//Add useEffect to check time, after 10 min the game is over
 // 10 Game Row,
 //1 active, choose colors, when all 4 colors selected show ok button to submit
 //Already selected colors, - 4 pin box with color statuses, white for right color wrong place, black right color right place (Randomize display)
@@ -105,17 +106,25 @@ const Game = ({ privateGame }) => {
 
     const firebase = await loadFirestore()
     const score = {
-      user: user.uid,
-      totalPoints
+      totalPoints,
+      user: {
+        photoURL: user.photoURL,
+        displayName: user.displayName
+      }
     }
 
-    firebase
-      .firestore()
-      .collection(storeCollection)
-      .doc()
-      .set(score)
-      // .then(() => setTodo(''))
-      .catch((error) => console.error(error))
+    const userRef = firebase.firestore().collection(storeCollection).doc(user.uid)
+
+    userRef.get().then((docSnapshot) => {
+      if (docSnapshot.exists) {
+        userRef.onSnapshot((doc) => {
+          const document = { ...doc.data() }
+          if (document.totalPoints < totalPoints) userRef.set(score)
+        })
+      } else {
+        firebase.firestore().collection(storeCollection).doc(user.uid).set(score) // create the document
+      }
+    })
   }
 
   return (
@@ -144,7 +153,7 @@ const Game = ({ privateGame }) => {
             ))}
             {gameStatus !== 'codecracked' && <GameRowActive handleChoice={handleChoice} />}
             {/* <TheCode /> */}
-            <TheCode key="kode" showCode={gameStatus === 'codecracked'} theCode={code} />
+            <TheCode key="kode" showCode={gameStatus === 'codecracked' || gameStatus === 'codenotcracked'} theCode={code} />
             {gameStatus === 'codecracked' || gameStatus === 'codenotcracked' ? (
               <CodeCracked gameStatus={gameStatus} startGame={startGame} result={result} />
             ) : (
