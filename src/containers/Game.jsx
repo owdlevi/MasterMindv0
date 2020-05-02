@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+/** @jsx jsx */
+import { useState } from 'react'
+import { jsx } from 'theme-ui'
 import { get } from 'lodash/object'
 import { useFirebaseAuth, useAuthUserInfo } from '../utils/auth/hooks'
 import StartGame from '../components/StartGame'
@@ -129,14 +131,26 @@ const Game = ({ privateGame }) => {
 
   return (
     <div
-      style={{
+      sx={{
         display: 'flex',
         alignItems: 'top',
         justifyContent: 'center',
         margin: '40px auto',
-        minHeight: '300px'
+        minHeight: '300px',
+        flexFlow: 'column',
+        '@media screen and (min-width: 1040px)': {
+          flexFlow: 'row'
+        }
       }}>
-      <div className="GameStatus">
+      <div
+        className="GameStatus"
+        sx={{
+          maxWidth: '420px',
+          width: '100%',
+          '@media screen and (min-width: 1040px)': {
+            maxWidth: '300px'
+          }
+        }}>
         {gameStatus !== 'notstarted' && (
           <TopGame round={round} startTime={startTime} stopTimer={gameStatus === 'codecracked' || gameStatus === 'codenotcracked'} />
         )}
@@ -146,7 +160,7 @@ const Game = ({ privateGame }) => {
         {gameStatus === 'notstarted' ? (
           <StartGame startGame={startGame} />
         ) : (
-          <>
+          <div>
             {/* <TopGame round={round} startTime={startTime} stopTimer={gameStatus === 'codecracked'} /> */}
             {gameChoices.map((choices, i) => (
               <GameRow key={i} choices={choices} />
@@ -159,7 +173,7 @@ const Game = ({ privateGame }) => {
             ) : (
               ``
             )}
-          </>
+          </div>
         )}
       </div>
       {user && <LeaderBord />}

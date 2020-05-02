@@ -25,7 +25,7 @@ const LeaderBord = () => {
 
     const firebase = await loadFirestore()
 
-    const query = firebase.firestore().collection(storeCollection).orderBy('totalPoints').limit(10)
+    const query = firebase.firestore().collection(storeCollection).orderBy('totalPoints', 'desc').limit(10)
 
     query.onSnapshot((snapshot) => {
       let data = []
