@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ThemeProvider, jsx, Container } from 'theme-ui'
+import { jsx } from 'theme-ui'
 import UserStatus from '../User/UserStatus'
 // import SwitchColorMode from '../components/SwitchColorMode'
 import AppBar from '@material-ui/core/AppBar'

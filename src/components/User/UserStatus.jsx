@@ -3,10 +3,8 @@ import { useState } from 'react'
 import { jsx } from 'theme-ui'
 import Login from './Login'
 import MyGameRooms from '../MyGameRooms'
-import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import { get } from 'lodash/object'
 import { useFirebaseAuth, useAuthUserInfo } from '../../utils/auth/hooks'
 import logout from '../../utils/auth/logout'
 
@@ -15,7 +13,6 @@ const UserStatus = (props) => {
   const [gameRoomOpen, setGameRoomOpen] = useState(false)
 
   const { initializing, user } = useFirebaseAuth()
-  const AuthUser = get(useAuthUserInfo(), 'AuthUser', null)
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)

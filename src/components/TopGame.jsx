@@ -13,7 +13,7 @@ const TopGame = ({ round, startTime, stopTimer }) => {
       }}>
       <h2
         sx={{
-          width: 'calc(100% - 80px)',
+          width: 'calc(100% - 60px)',
           fontSize: '18px',
           lineHeight: '18px',
           fontWeight: '500',

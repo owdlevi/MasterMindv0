@@ -22,9 +22,7 @@ const ColorOptions = ({ setColor }) => {
             height: '40px',
             marginRight: '10px',
             '@media screen and (max-width: 450px)': {
-              width: '25px',
-              height: '25px',
-              marginRight: '5px'
+              // marginRight: '5px'
             }
           }}>
           <Fab
@@ -33,7 +31,9 @@ const ColorOptions = ({ setColor }) => {
             style={{
               backgroundColor: color.colorCode ? color.colorCode : '#ffffff',
               width: '100%',
-              height: '100%'
+              height: '100%',
+              minWidth: '100%',
+              minHeight: '100%'
             }}>{``}</Fab>
         </div>
       ))}

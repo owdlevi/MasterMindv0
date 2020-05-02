@@ -11,6 +11,11 @@ body {
   flex-flow: column;
   align-items: center;
 }
+@media (max-width: 450px) {
+  .Game {
+    margin-top: 0;
+  }
+}
 .Game h1 {
   color: #0e0e0e;
   text-align: center;
@@ -81,7 +86,7 @@ body {
   justify-content: space-between;
 }
 .GameItems {
-  width: calc(100% - 80px);
+  width: calc(100% - 60px);
   display: flex;
   flex-flow: row;
   padding: 10px 20px;
@@ -131,7 +136,7 @@ body {
 
 .answers {
   width: 50px;
-  margin-left: 20px;
+  margin-left: 10px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -153,8 +158,3 @@ body {
   display: flex;
   flex-flow: row;
 }
-/* .Clock span {
-  display: inline-block;
-  width: 22px;
-  text-align: right;
-} */

@@ -4,7 +4,7 @@ import theme from './theme'
 import Game from './containers/Game'
 import GameRoom from './components/GameRoom'
 import Layout from './containers/Layout'
-import { BrowserRouter as Router, Switch, Route, useParams } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import './styles.css'
 

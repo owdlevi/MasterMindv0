@@ -34,7 +34,7 @@ const TheCode = ({ showCode, theCode }) => {
         sx={{
           position: 'relative',
           borderRadius: '5px',
-          width: 'calc(100% - 80px)',
+          width: 'calc(100% - 60px)',
           background: 'background'
         }}>
         <animated.div

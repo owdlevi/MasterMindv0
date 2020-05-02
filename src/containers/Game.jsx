@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { jsx } from 'theme-ui'
 import { get } from 'lodash/object'
 import { useFirebaseAuth, useAuthUserInfo } from '../utils/auth/hooks'
+import StartGameInfo from '../components/StartGameInfo'
 import StartGame from '../components/StartGame'
 import GameRow from '../components/gameRow'
 import GameRowActive from '../components/GameRowActive'
@@ -32,7 +33,7 @@ const Game = ({ privateGame }) => {
   const [startTime, setStartTime] = useState(null)
   const [round, setRound] = useState(1)
   const [result, setResult] = useState(null)
-  const [mood, setMood] = useState('happy')
+  const [mood, setMood] = useState('sad')
 
   const { initializing, user } = useFirebaseAuth()
   const AuthUser = get(useAuthUserInfo(), 'AuthUser', null)
@@ -133,13 +134,18 @@ const Game = ({ privateGame }) => {
     <div
       sx={{
         display: 'flex',
-        alignItems: 'top',
         justifyContent: 'center',
         margin: '40px auto',
         minHeight: '300px',
         flexFlow: 'column',
+        alignItems: 'center',
         '@media screen and (min-width: 1040px)': {
-          flexFlow: 'row'
+          flexFlow: 'row',
+          justifyContent: 'center',
+          alignItems: 'initial'
+        },
+        '@media screen and (max-width: 520px)': {
+          mt: 0
         }
       }}>
       <div
@@ -158,14 +164,17 @@ const Game = ({ privateGame }) => {
       </div>
       <div className="GameArea">
         {gameStatus === 'notstarted' ? (
-          <StartGame startGame={startGame} />
+          <div>
+            <StartGameInfo />
+            <StartGame startGame={startGame} />
+          </div>
         ) : (
           <div>
             {/* <TopGame round={round} startTime={startTime} stopTimer={gameStatus === 'codecracked'} /> */}
             {gameChoices.map((choices, i) => (
               <GameRow key={i} choices={choices} />
             ))}
-            {gameStatus !== 'codecracked' && <GameRowActive handleChoice={handleChoice} />}
+            {gameStatus !== 'codecracked' || gameStatus !== 'codenotcracked' ? <GameRowActive handleChoice={handleChoice} /> : ``}
             {/* <TheCode /> */}
             <TheCode key="kode" showCode={gameStatus === 'codecracked' || gameStatus === 'codenotcracked'} theCode={code} />
             {gameStatus === 'codecracked' || gameStatus === 'codenotcracked' ? (

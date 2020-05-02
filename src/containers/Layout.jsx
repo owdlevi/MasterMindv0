@@ -3,10 +3,8 @@ import React from 'react'
 import { ThemeProvider, jsx, Container } from 'theme-ui'
 import theme from './../theme'
 import Header from '../components/Header'
-import UserStatus from '../components/User/UserStatus'
-// import SwitchColorMode from '../components/SwitchColorMode'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-import { useFirebaseAuth, useAuthUserInfo } from '../utils/auth/hooks'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { useFirebaseAuth } from '../utils/auth/hooks'
 import { createAuthUserInfo } from '../utils/auth/user'
 
 const Layout = ({ children, title = 'Master Mind 0.1' }) => {
