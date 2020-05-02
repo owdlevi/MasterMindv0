@@ -16,6 +16,9 @@ const firebaseAuthConfig = {
     {
       provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       requireDisplayName: false
+    },
+    {
+      provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID
     }
   ],
   signInSuccessUrl: '/',
