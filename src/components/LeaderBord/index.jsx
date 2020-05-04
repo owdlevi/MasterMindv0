@@ -1,6 +1,7 @@
+/** @jsx jsx */
 import React, { useState, useEffect } from 'react'
+import { jsx } from 'theme-ui'
 import { loadFirestore } from '../../utils/db'
-
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import Divider from '@material-ui/core/Divider'
@@ -41,18 +42,26 @@ const LeaderBord = () => {
 
   return (
     <div
-      style={{
-        backgroundColor: '#ff6a85'
+      sx={{
+        backgroundColor: '#ff6a85',
+        '@media screen and (max-width: 520px)': {
+          mb: '40px',
+          width: '100%'
+        }
       }}>
       <List
         dense
-        style={{
+        sx={{
           width: '300px',
-          maxWidth: 300
+          maxWidth: 300,
+          '@media screen and (max-width: 520px)': {
+            width: '100%',
+            maxWidth: '100%'
+          }
         }}>
         {scoreList.map((score, i) => {
           return (
-            <>
+            <React.Fragment>
               <ListItem key={i}>
                 <ListItemAvatar>
                   <Avatar alt={score.user.displayName} src={score.user.photoURL} />
@@ -66,7 +75,7 @@ const LeaderBord = () => {
               </ListItem>
 
               {i < scoreList.length - 1 && <Divider variant="inset" component="li" />}
-            </>
+            </React.Fragment>
           )
         })}
       </List>
