@@ -18,12 +18,7 @@ const CodeCracked = ({ gameStatus, startGame, result }) => {
             {result.time.minutes > 0 ? `${result.time.minutes} minute ` : ``} and {result.time.seconds} seconds.
           </div>
         )}
-        {gameStatus === 'codenotcracked' && (
-          <div>
-            Oh snap you didn't found the code. Your result is {result.round} {result.round > 1 ? `rounds ` : `round `}
-            {result.time.minutes > 0 ? `${result.time.minutes} minute ` : ``} and {result.time.seconds} seconds.
-          </div>
-        )}
+        {gameStatus === 'codenotcracked' && <div>Oh snap you didn't found the code.</div>}
         <span
           sx={{
             display: 'inline-block',

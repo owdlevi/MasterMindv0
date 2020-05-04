@@ -11,22 +11,23 @@ import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 
-const LeaderBord = () => {
+const LeaderBord = ({ gameroom }) => {
   const [scoreList, setScoreList] = useState([])
 
   useEffect(() => {
-    console.log('useEffect called')
     getScores()
     return () => {}
   }, [])
 
   const getScores = async () => {
-    console.log('getScores called')
     const storeCollection = 'LeaderBord'
 
     const firebase = await loadFirestore()
 
-    const query = firebase.firestore().collection(storeCollection).orderBy('totalPoints', 'desc').limit(10)
+    const query =
+      gameroom && gameroom.id
+        ? firebase.firestore().collection('gamerooms').doc(gameroom.id).collection(storeCollection).orderBy('totalPoints', 'desc').limit(10)
+        : firebase.firestore().collection(storeCollection).orderBy('totalPoints', 'desc').limit(10)
 
     query.onSnapshot((snapshot) => {
       let data = []

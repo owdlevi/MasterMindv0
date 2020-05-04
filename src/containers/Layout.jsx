@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React from 'react'
 import { ThemeProvider, jsx, Container } from 'theme-ui'
+import { Helmet } from 'react-helmet'
 import theme from './../theme'
 import Header from '../components/Header'
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -13,12 +14,11 @@ const Layout = ({ children, title = 'Master Mind 0.1' }) => {
   return (
     <ThemeProvider theme={theme}>
       <AuthUserInfoContext.Provider value={{ user }}>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>{title}</title>
+        </Helmet>
         <Router>
-          {/* <Head>
-      <title>{title}</title>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    </Head> */}
           <div
             sx={{
               fontSize: '15px',

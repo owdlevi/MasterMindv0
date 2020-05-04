@@ -4,7 +4,6 @@ import { useTrail, animated } from 'react-spring'
 
 const Answers = ({ pins }) => {
   const trail = useTrail(pins.length, { opacity: 1, from: { opacity: 0 } })
-  console.log(pins)
 
   return (
     <div className="answers">

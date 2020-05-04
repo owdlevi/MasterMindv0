@@ -27,7 +27,7 @@ import { gameSettings } from '../gameConfig'
 
 let code = []
 
-const Game = ({ privateGame }) => {
+const Game = ({ gameroom }) => {
   const [gameChoices, setGameChoices] = useState([])
   const [gameStatus, setGameStatus] = useState('notstarted')
   const [startTime, setStartTime] = useState(null)
@@ -45,7 +45,7 @@ const Game = ({ privateGame }) => {
     setStartTime(Date.now())
     setMood('excited')
     code = utils.generateRandomCode(4)
-    console.log(code)
+    // console.log(code)
   }
 
   const handleChoice = (playerChoices) => {
@@ -115,8 +115,11 @@ const Game = ({ privateGame }) => {
         displayName: user.displayName
       }
     }
-
-    const userRef = firebase.firestore().collection(storeCollection).doc(user.uid)
+    //
+    const userRef =
+      gameroom && gameroom.id
+        ? firebase.firestore().collection('gamerooms').doc(gameroom.id).collection(storeCollection).doc(user.uid)
+        : firebase.firestore().collection(storeCollection).doc(user.uid)
 
     userRef.get().then((docSnapshot) => {
       if (docSnapshot.exists) {
@@ -125,7 +128,7 @@ const Game = ({ privateGame }) => {
           if (document.totalPoints < totalPoints) userRef.set(score)
         })
       } else {
-        firebase.firestore().collection(storeCollection).doc(user.uid).set(score) // create the document
+        userRef.set(score) // create the document
       }
     })
   }
@@ -161,6 +164,14 @@ const Game = ({ privateGame }) => {
           <TopGame round={round} startTime={startTime} stopTimer={gameStatus === 'codecracked' || gameStatus === 'codenotcracked'} />
         )}
         <Kawaii mood={mood} />
+        {gameroom && (
+          <h2
+            sx={{
+              color: 'white'
+            }}>
+            {gameroom.roomName}
+          </h2>
+        )}
       </div>
       <div className="GameArea">
         {gameStatus === 'notstarted' ? (
@@ -174,7 +185,7 @@ const Game = ({ privateGame }) => {
             {gameChoices.map((choices, i) => (
               <GameRow key={i} choices={choices} />
             ))}
-            {gameStatus !== 'codecracked' || gameStatus !== 'codenotcracked' ? <GameRowActive handleChoice={handleChoice} /> : ``}
+            {gameStatus !== 'codecracked' && gameStatus !== 'codenotcracked' ? <GameRowActive handleChoice={handleChoice} /> : ``}
             {/* <TheCode /> */}
             <TheCode key="kode" showCode={gameStatus === 'codecracked' || gameStatus === 'codenotcracked'} theCode={code} />
             {gameStatus === 'codecracked' || gameStatus === 'codenotcracked' ? (
@@ -185,7 +196,7 @@ const Game = ({ privateGame }) => {
           </div>
         )}
       </div>
-      {user && <LeaderBord />}
+      {user && <LeaderBord gameroom={gameroom} />}
     </div>
   )
 }
