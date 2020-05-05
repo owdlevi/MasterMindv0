@@ -21,7 +21,7 @@ const firebaseAuthConfig = {
       provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID
     }
   ],
-  signInSuccessUrl: '/',
+  // signInSuccessUrl: '/',
   credentialHelper: 'none'
 }
 
