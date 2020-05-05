@@ -196,7 +196,7 @@ const Game = ({ gameroom }) => {
           </div>
         )}
       </div>
-      {user && <LeaderBord gameroom={gameroom} />}
+      <LeaderBord gameroom={gameroom} />
     </div>
   )
 }
