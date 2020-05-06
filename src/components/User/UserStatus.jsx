@@ -24,6 +24,7 @@ const UserStatus = (props) => {
 
   const handleOpenGameRooms = () => {
     setGameRoomOpen(!gameRoomOpen)
+    handleClose()
   }
 
   return user ? (

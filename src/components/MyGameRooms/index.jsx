@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { loadFirestore } from '../../utils/db'
 import { useFirebaseAuth, useAuthUserInfo } from '../../utils/auth/hooks'
 import { get } from 'lodash/object'
@@ -13,6 +14,8 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 const MyGameRooms = ({ open, close }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [name, setName] = useState('')
+  const [gameRooms, setGameRooms] = useState([])
+  const { initializing, user } = useFirebaseAuth()
 
   useEffect(() => {
     setIsOpen(open)
@@ -21,7 +24,37 @@ const MyGameRooms = ({ open, close }) => {
     }
   }, [open])
 
-  const { initializing, user } = useFirebaseAuth()
+  useEffect(() => {
+    const getGameRooms = async () => {
+      const userID = user.uid
+      const firebase = await loadFirestore()
+
+      const db = firebase.firestore()
+      let roomsRef = db.collection('gamerooms')
+      let query = roomsRef
+        .where('owner', '==', userID)
+        .get()
+        .then((snapshot) => {
+          let data = []
+          if (snapshot.size) {
+            snapshot.forEach((doc) => {
+              const document = { id: doc.id, ...doc.data() }
+              data.push(document)
+            })
+            setGameRooms(data)
+          }
+        })
+        .catch((err) => {
+          console.log('Error getting documents', err)
+        })
+    }
+
+    getGameRooms()
+    return () => {
+      setIsOpen(false)
+    }
+  }, [user])
+
   // const AuthUser = get(useAuthUserInfo(), 'AuthUser', null)
 
   const handleClose = () => {
@@ -49,7 +82,10 @@ const MyGameRooms = ({ open, close }) => {
         // .collection('todos')
         .doc()
         .set(item)
-        .then(() => handleClose())
+        .then(() => {
+          setName('')
+          handleClose()
+        })
         .catch((error) => console.error(error))
     }
   }
@@ -62,6 +98,18 @@ const MyGameRooms = ({ open, close }) => {
       <Dialog open={isOpen} maxWidth="sm" onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Game Rooms</DialogTitle>
         <DialogContent>
+          {gameRooms.length ? (
+            <DialogContentText>
+              {gameRooms.map((room) => (
+                <Link style={{ color: '#3f51b5', textDecoration: 'none' }} onClick={handleClose} to={`/game/${room.id}`}>
+                  {room.roomName}
+                </Link>
+                // <div>{room.roomName}</div>
+              ))}
+            </DialogContentText>
+          ) : (
+            ``
+          )}
           <DialogContentText>Create your Game room and invite your friends to Crack the Code!</DialogContentText>
           <TextField
             onChange={(e) => handleNameChange(e)}

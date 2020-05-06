@@ -45,41 +45,66 @@ const LeaderBord = ({ gameroom }) => {
     <div
       sx={{
         backgroundColor: '#ff6a85',
+        minWidth: '300px',
         '@media screen and (max-width: 520px)': {
           mb: '40px',
           width: '100%'
         }
       }}>
-      <List
-        dense
-        sx={{
-          width: '300px',
-          maxWidth: 300,
-          '@media screen and (max-width: 520px)': {
-            width: '100%',
-            maxWidth: '100%'
-          }
-        }}>
-        {scoreList.map((score, i) => {
-          return (
-            <React.Fragment>
-              <ListItem key={i}>
-                <ListItemAvatar>
-                  <Avatar alt={score.user.displayName} src={score.user.photoURL} />
-                </ListItemAvatar>
-                <ListItemText primary={score.user.displayName} />
-                <ListItemSecondaryAction>
-                  <Typography component="span" variant="body2" color="textPrimary">
-                    {score.totalPoints}
-                  </Typography>
-                </ListItemSecondaryAction>
-              </ListItem>
+      {scoreList.length ? (
+        <React.Fragment>
+          <h3
+            sx={{
+              textAlign: 'center'
+            }}>
+            Top 10
+          </h3>
+          <List
+            dense
+            sx={{
+              width: '300px',
+              maxWidth: 300,
+              '@media screen and (max-width: 520px)': {
+                width: '100%',
+                maxWidth: '100%'
+              }
+            }}>
+            {scoreList.map((score, i) => {
+              return (
+                <React.Fragment>
+                  <ListItem key={i}>
+                    <ListItemAvatar>
+                      <Avatar alt={score.user.displayName} src={score.user.photoURL} />
+                    </ListItemAvatar>
+                    <ListItemText primary={score.user.displayName} />
+                    <ListItemSecondaryAction>
+                      <Typography component="span" variant="body2" color="textPrimary">
+                        {score.totalPoints}
+                      </Typography>
+                    </ListItemSecondaryAction>
+                  </ListItem>
 
-              {i < scoreList.length - 1 && <Divider variant="inset" component="li" />}
-            </React.Fragment>
-          )
-        })}
-      </List>
+                  {i < scoreList.length - 1 && <Divider variant="inset" component="li" />}
+                </React.Fragment>
+              )
+            })}
+          </List>
+        </React.Fragment>
+      ) : (
+        <div
+          sx={{
+            px: '20px',
+            py: '10px'
+          }}>
+          <h3
+            sx={{
+              textAlign: 'center'
+            }}>
+            Top 10
+          </h3>
+          No results.
+        </div>
+      )}
     </div>
   )
 }
